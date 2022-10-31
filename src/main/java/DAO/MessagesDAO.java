@@ -10,23 +10,23 @@ import javax.naming.Context;
 import javax.naming.InitialContext;
 import javax.sql.DataSource;
 
-import DTO.MessageDto;
+import dto.MessagesDTO;
 
-public class MessageDAO {
+public class MessagesDAO {
 
-	private static MessageDAO instance;
+	private static MessagesDAO instance;
 	
-	synchronized public  static MessageDAO getInstance() throws Exception{ 
+	synchronized public  static MessagesDAO getInstance() throws Exception{ 
 		
 			if(instance==null) {
-				instance = new MessageDAO();
+				instance = new MessagesDAO();
 			}
 			return instance;
 		
 	}
 	
 	
-	private MessageDAO() {} //생성자
+	private MessagesDAO() {} //생성자
 	  //싱글톤 적용위해서 private
 	
 	   private Connection getConnection() throws Exception {
@@ -35,7 +35,7 @@ public class MessageDAO {
 		      
 		      return ds.getConnection();
 		   }
-	   public int  insert(MessageDto dto) throws Exception{ //추가
+	   public int  insert(MessagesDTO dto) throws Exception{ //추가
 			String sql = 
 					"insert into messages values(messages_seq.nextval,?,?)";  
 			
@@ -51,20 +51,20 @@ public class MessageDAO {
 				return result;
 			}		
 		}
-		public List<MessageDto> selectAll() throws Exception {
+		public List<MessagesDTO> selectAll() throws Exception {
 			String sql ="select * from messages order by 1";
 			
 			try(Connection con= this.getConnection();
 					PreparedStatement pstat = con.prepareStatement(sql);
 					ResultSet rs = pstat.executeQuery();){
-				List<MessageDto> result = new ArrayList<MessageDto>();  //rs을 닫히면 보낼수 없기에 리스트사용
+				List<MessagesDTO> result = new ArrayList<MessagesDTO>();  //rs을 닫히면 보낼수 없기에 리스트사용
 				
 				while(rs.next()){
 					int id = rs.getInt("id");
 					String writer = rs.getString("writer");
 					String message = rs.getString("message");
 				
-					MessageDto dto = new MessageDto(id, writer, message);
+					MessagesDTO dto = new MessagesDTO(id, writer, message);
 					
 					result.add(dto);
 					
