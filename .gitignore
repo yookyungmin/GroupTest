@@ -1,5 +1,6 @@
 # Created by https://www.toptal.com/developers/gitignore/api/java,windows,eclipse,intellij,git
 # Edit at https://www.toptal.com/developers/gitignore?templates=java,windows,eclipse,intellij,git
+.idea/
 
 ### Eclipse ###
 .metadata
@@ -17,7 +18,7 @@ local.properties
 .project
 build/
 .settings/
-
+/*.iml
 # External tool builders
 .externalToolBuilders/
 
